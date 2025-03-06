@@ -43,3 +43,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# pip install pillow
+# pip install pyautogui
+# pip install numpy
