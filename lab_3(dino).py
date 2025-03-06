@@ -18,7 +18,7 @@ class DinoBot:
 
     def grabimage(self):
         box = (self.dino[0] + 70, self.dino[1], self.dino[0] + 150, self.dino[1] + 60)
-        image = ImageGrab.grab(box)       
+        image = ImageGrab.grab(box)
         grayImage = ImageOps.grayscale(image)
         a = array(grayImage.getcolors())
         return a.sum()
@@ -26,7 +26,8 @@ class DinoBot:
     def start(self):
         self.restartgame()
         while True:
-            if self.grabimage() != 1447:
+            print(self.grabimage())
+            if self.grabimage() > 10000:
                 self.jump()
             time.sleep(0.1)
 
@@ -34,7 +35,9 @@ def main():
     replaybtn = (1280, 524)
     dino = (982, 532)
     time.sleep(3)
-    print(pyautogui.position())  # Двигайте мышью и смотрите координаты
+
+    print(pyautogui.position())
+
     bot = DinoBot(replaybtn, dino)
     bot.start()
 
