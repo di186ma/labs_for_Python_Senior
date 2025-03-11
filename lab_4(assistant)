@@ -1,0 +1,58 @@
+import speech_recognition as sr
+import pyttsx3
+import sys
+import datetime
+import webbrowser
+
+# pip install SpeechRecognition pyttsx3 pyaudio
+
+engine = pyttsx3.init()
+
+def speak(text):
+    engine.say(text)
+    engine.runAndWait()
+
+def listen():
+    recognizer = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Слушаю...")
+        recognizer.adjust_for_ambient_noise(source)
+        audio = recognizer.listen(source)
+    try:
+        print("Распознавание...")
+        query = recognizer.recognize_google(audio, language="ru-RU")
+        print(f"Вы сказали: {query}")
+        return query
+    except sr.UnknownValueError:
+        speak("Извините, я не понял, что вы сказали.")
+        return None
+    except sr.RequestError:
+        speak("Извините, сервис распознавания речи недоступен.")
+        return None
+
+def main():
+    speak("Привет! Чем могу помочь?")
+    while True:
+        query = listen()
+        if query:
+            query = query.lower()
+            if "привет" in query:
+                speak("Привет! Как дела?")
+            elif "пока" in query or "выход" in query:
+                speak("До свидания!")
+                sys.exit()
+            elif "как тебя зовут" in query:
+                speak("Меня зовут Олег.")
+            elif "сколько времени" in query:
+                now = datetime.datetime.now()
+                speak(f"Сейчас {now.hour} часов {now.minute} минут.")
+            elif "открой браузер" in query:
+                webbrowser.open("https://www.google.com")
+                speak("Браузер открыт.")
+            elif "расскажи шутку" in query:
+                speak("Нулевой элемент это первый элемент")
+            else:
+                speak("Я не понял вашего запроса.")
+
+if __name__ == "__main__":
+    main()
