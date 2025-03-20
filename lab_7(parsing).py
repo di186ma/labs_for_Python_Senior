@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = 'https://lenta.ru/'
+url = 'https://books.toscrape.com'
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
@@ -13,14 +13,12 @@ if response.status_code != 200:
 else:
     html = response.text
     soup = BeautifulSoup(html, 'html.parser')
-    news_items = soup.find_all('a', class_='card-mini _topnews')
+    books = soup.find_all('article', class_='product_pod')
 
-    if not news_items:
+    if not books:
         print("Новости не найдены. Возможно, изменилась структура сайта.")
     else:
-        for item in news_items:
-            title = item.text.strip()
-            link = item['href']
-            if not link.startswith('http'):
-                link = 'https://lenta.ru' + link
-            print(f'Заголовок: {title}\nСсылка: {link}\n')
+        for book in books:
+            title = book.h3.a['title']
+            price = book.find('p', class_='price_color').text
+            print(f'Заголовок: {title}\nЦена: {price}\n')
