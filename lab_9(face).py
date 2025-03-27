@@ -2,6 +2,8 @@ import cv2
 import os
 from deepface import DeepFace
 
+# pip install opencv-python DeepFace tf_keras
+
 
 def create_dirs(base_dir, sub_dirs):
     for sub_dir in sub_dirs:
@@ -10,8 +12,8 @@ def create_dirs(base_dir, sub_dirs):
 
 input_dir = "input_images"
 output_dir = "output"
-create_dirs(output_dir, ["original_with_faces", "cropped_faces"])
 
+create_dirs(output_dir, ["original_with_faces", "cropped_faces"])
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
