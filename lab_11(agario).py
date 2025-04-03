@@ -25,7 +25,7 @@ for _ in range(10):
     enemy_size = random.randint(10, 30)
     enemy_x = random.randint(0, WIDTH)
     enemy_y = random.randint(0, HEIGHT)
-    enemy_color = (random.randint(100, 255), 0, 0
+    enemy_color = (random.randint(100, 255), 0, 0)
     enemies.append([enemy_x, enemy_y, enemy_size, enemy_color])
 
 score = 0
